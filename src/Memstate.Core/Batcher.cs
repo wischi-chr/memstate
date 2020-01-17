@@ -8,23 +8,23 @@ namespace Memstate
 {
     internal class Batcher<T> : IAsyncDisposable
     {
-        private readonly int _maxBatchSize;
-
-        private readonly BlockingCollection<T> _items;
-
-        private readonly Task _batchTask;
+        private const int ItemTakeTimeoutMs = 1000;
 
         private readonly Action<IEnumerable<T>> _batchHandler;
-
+        private readonly BlockingCollection<T> _items;
+        private readonly int _maxBatchSize;
+        private readonly Task _batchTask;
         private readonly ILog _logger;
 
         public Batcher(Action<IEnumerable<T>> batchHandler, int maxBatchSize, int maxQueueLength)
         {
-            _logger = LogProvider.GetCurrentClassLogger();
             _batchHandler = batchHandler;
             _maxBatchSize = maxBatchSize;
+
+            _logger = LogProvider.GetCurrentClassLogger();
             _items = new BlockingCollection<T>(maxQueueLength);
             _batchTask = new Task(ProcessItems, TaskCreationOptions.LongRunning);
+
             _batchTask.Start();
         }
 
@@ -48,7 +48,7 @@ namespace Memstate
             while (!_items.IsCompleted)
             {
                 //Wait for an item to arrive
-                if (_items.TryTake(out var firstItem, 1000))
+                if (_items.TryTake(out var firstItem, ItemTakeTimeoutMs))
                 {
                     buffer.Add(firstItem);
 
