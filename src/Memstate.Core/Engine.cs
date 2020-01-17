@@ -37,7 +37,7 @@ namespace Memstate
         /// </summary>
         private long _lastRecordNumber;
 
-        public event CommandExecuted CommandExecuted = delegate { };
+        public event CommandExecuted CommandExecuted;
 
         public Engine(
             EngineSettings settings,
@@ -222,7 +222,7 @@ namespace Memstate
         {
             try
             {
-                CommandExecuted.Invoke(journalRecord, isLocal, events);
+                CommandExecuted?.Invoke(journalRecord, isLocal, events);
             }
             catch (Exception exception)
             {
