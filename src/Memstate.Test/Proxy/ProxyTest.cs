@@ -1,9 +1,9 @@
-﻿using Memstate.Configuration;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Memstate.Configuration;
+using NUnit.Framework;
 
 namespace Memstate.Test.Proxy
 {
@@ -27,7 +27,7 @@ namespace Memstate.Test.Proxy
         [Test]
         public void CanSetProperty()
         {
-            int expected = _proxy.CommandsExecuted + 1;
+            var expected = _proxy.CommandsExecuted + 1;
             _proxy.MyProperty = 42;
             Assert.AreEqual(expected, _proxy.CommandsExecuted);
         }
@@ -65,8 +65,8 @@ namespace Memstate.Test.Proxy
         public void QueryResultsAreCloned()
         {
             _proxy.AddCustomer("Robert");
-            Customer robert = _proxy.GetCustomers().First();
-            Customer robert2 = _proxy.GetCustomers().First();
+            var robert = _proxy.GetCustomers().First();
+            var robert2 = _proxy.GetCustomers().First();
             Assert.AreNotEqual(robert, robert2);
         }
 
@@ -74,8 +74,8 @@ namespace Memstate.Test.Proxy
         public void SafeQueryResultsAreNotCloned()
         {
             _proxy.AddCustomer("Robert");
-            Customer robert = _proxy.GetCustomersCloned().First();
-            Customer robert2 = _proxy.GetCustomersCloned().First();
+            var robert = _proxy.GetCustomersCloned().First();
+            var robert2 = _proxy.GetCustomersCloned().First();
             Assert.AreEqual(robert, robert2);
         }
 
@@ -109,7 +109,7 @@ namespace Memstate.Test.Proxy
         [Test]
         public void ComplexGeneric()
         {
-            double result = _proxy.ComplexGeneric(new KeyValuePair<string, double>("dog", 42.0));
+            var result = _proxy.ComplexGeneric(new KeyValuePair<string, double>("dog", 42.0));
             Assert.AreEqual(42.0, result, 0.0001);
             Assert.AreEqual(1, _proxy.CommandsExecuted);
         }

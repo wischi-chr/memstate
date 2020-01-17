@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-using Memstate.Tcp;
-using Memstate.Logging;
 using Memstate.Configuration;
+using Memstate.Logging;
+using Memstate.Tcp;
 
 namespace Memstate
 {
@@ -115,7 +115,7 @@ namespace Memstate
 
         private void Handle(EventsRaised eventsRaised)
         {
-            foreach(var @event in eventsRaised.Events)
+            foreach (var @event in eventsRaised.Events)
             {
                 if (_eventHandlers.TryGetValue(@event.GetType(), out var handler))
                 {
@@ -151,7 +151,11 @@ namespace Memstate
                 _logger.Trace("awaiting NetworkMessage");
                 var message = await Message.Read(_stream, _deserializer, cancellationToken);
                 _logger.Debug("message received " + message);
-                if (message == null) break;
+                if (message == null)
+                {
+                    break;
+                }
+
                 Handle(message);
             }
         }
@@ -184,7 +188,7 @@ namespace Memstate
             return completionSource.Task;
         }
 
-        internal async override Task<object> ExecuteUntyped(Query query)
+        internal override async Task<object> ExecuteUntyped(Query query)
         {
             var request = new QueryRequest(query);
             var response = (QueryResponse)await SendAndReceive(request);
@@ -201,15 +205,15 @@ namespace Memstate
         public override async Task<TResult> Execute<TResult>(Command<TModel, TResult> command)
         {
             var request = new CommandRequest(command);
-            var response = (CommandResponse) await SendAndReceive(request);
-            return (TResult) response.Result;
+            var response = (CommandResponse)await SendAndReceive(request);
+            return (TResult)response.Result;
         }
 
         public override async Task<TResult> Execute<TResult>(Query<TModel, TResult> query)
         {
             var request = new QueryRequest(query);
-            var response = (QueryResponse) await SendAndReceive(request);
-            return (TResult) response.Result;
+            var response = (QueryResponse)await SendAndReceive(request);
+            return (TResult)response.Result;
         }
 
         public override Task Unsubscribe<T>()

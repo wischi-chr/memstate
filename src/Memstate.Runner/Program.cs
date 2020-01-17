@@ -12,7 +12,7 @@ namespace Memstate.Runner
     /// <summary>
     /// This will evolve into some kind of CLI or interactive terminal
     /// </summary>
-    class Program
+    internal class Program
     {
         private static readonly Dictionary<string, Type> Commands = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
         {

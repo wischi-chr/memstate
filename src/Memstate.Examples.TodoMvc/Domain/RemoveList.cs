@@ -16,7 +16,7 @@ namespace Memstate.Examples.TodoMvc.Domain
 
         [JsonProperty]
         public Guid ListId { get; private set; }
-        
+
         public override void Execute(TodoModel model)
         {
             model.Lists.Remove(ListId);

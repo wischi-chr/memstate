@@ -12,7 +12,7 @@ namespace Memstate
 
         protected override Task<object> ExecuteMapped(Client<T> client, MethodCall methodCall, object mappedQuery)
         {
-            return client.ExecuteUntyped((Query) mappedQuery);
+            return client.ExecuteUntyped((Query)mappedQuery);
         }
 
         protected override Task<object> ExecuteProxy(Client<T> client, MethodCall methodCall, string signature)

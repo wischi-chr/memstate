@@ -4,7 +4,7 @@ namespace Memstate
 {
     public class FileStorageSettings : Settings
     {
-        public override string Key { get;  } = "Memstate:StorageProviders:FileStorage";
+        public override string Key { get; } = "Memstate:StorageProviders:FileStorage";
 
         private readonly EngineSettings _memstateSettings;
 

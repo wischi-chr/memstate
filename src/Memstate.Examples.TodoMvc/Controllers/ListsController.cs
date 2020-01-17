@@ -14,22 +14,22 @@ namespace Memstate.Examples.TodoMvc.Controllers
         {
             _model = model;
         }
-        
+
         [Route("", Name = "Lists.List")]
         [HttpGet]
         public IActionResult List()
         {
             var lists = _model.Execute(new FindAll()).Result;
-            
+
             return Json(lists);
         }
-        
+
         [Route("", Name = "Lists.Resolve")]
         [HttpPost]
         public IActionResult Create(string name)
         {
             var list = _model.Execute(new CreateList(name)).Result;
-            
+
             return Created(Url.RouteUrl("Lists.Details", new { listId = list.Id }), list);
         }
 

@@ -7,19 +7,19 @@ namespace Memstate.Postgres
     public class PostgresJournalSubscription : IJournalSubscription
     {
         private readonly AutoResetEvent _readWaiter = new AutoResetEvent(false);
-        
+
         private readonly Thread _listenerThread;
-        
+
         private readonly Thread _readerThread;
-        
+
         private readonly PostgresSettings _settings;
-        
+
         private readonly Action<JournalRecord> _handler;
-        
+
         private readonly PostgresJournalReader _journalReader;
-        
+
         private bool _ready;
-        
+
         private volatile bool _disposed;
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Memstate.Postgres
             _disposed = true;
 
             _readWaiter.Set();
-            
+
             _readerThread.Join(TimeSpan.FromSeconds(10).Milliseconds);
             _listenerThread.Join(TimeSpan.FromSeconds(10).Milliseconds);
         }
@@ -87,7 +87,7 @@ namespace Memstate.Postgres
                 connection.Notification += HandleNotification;
 
                 SendListenCommand(connection);
-                  
+
                 while (!_disposed)
                 {
                     connection.Wait(TimeSpan.FromSeconds(10));
@@ -102,12 +102,12 @@ namespace Memstate.Postgres
                 foreach (var record in _journalReader.GetRecords(_nextRecordId))
                 {
                     _nextRecordId++;
-                    
+
                     _handler.Invoke(record);
                 }
 
                 _ready = true;
-                
+
                 _readWaiter.WaitOne(TimeSpan.FromSeconds(1));
             }
         }

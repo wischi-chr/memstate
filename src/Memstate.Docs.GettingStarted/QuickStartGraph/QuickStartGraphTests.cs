@@ -1,26 +1,30 @@
-﻿using Memstate.Configuration;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Memstate.Configuration;
 using Memstate.Docs.GettingStarted.QuickStartGraph.Commands;
 using Memstate.Docs.GettingStarted.QuickStartGraph.Queries;
 using Memstate.Models.Graph;
 using NUnit.Framework;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Memstate.Docs.GettingStarted.QuickStartGraph
 {
     public class QuickStartGraphTests
     {
-        private string JournalFile = "smoke_test_with_defaults_wire_for_graph";
-        private string JournalFilename = "smoke_test_with_defaults_wire_for_graph.journal";
-        private string JournalSerializer = "Wire";
+        private readonly string JournalFile = "smoke_test_with_defaults_wire_for_graph";
+        private readonly string JournalFilename = "smoke_test_with_defaults_wire_for_graph.journal";
+        private readonly string JournalSerializer = "Wire";
 
         [SetUp]
         [TearDown]
         public void SetupTeardown()
         {
-            if (File.Exists(JournalFilename)) File.Delete(JournalFilename);
+            if (File.Exists(JournalFilename))
+            {
+                File.Delete(JournalFilename);
+            }
+
             Config.Reset();
         }
 

@@ -8,7 +8,7 @@ using Memstate.Runner.Commands;
 
 namespace Memstate.Runner
 {
-    static class Extensions
+    internal static class Extensions
     {
         public static bool TryMatch(this Regex regex, string input, out Match match)
         {
@@ -33,7 +33,7 @@ namespace Memstate.Runner
         }
     }
 
-    public class GetQuery : Query<RedisModel, String>
+    public class GetQuery : Query<RedisModel, string>
     {
         public readonly string Key;
 
@@ -47,7 +47,7 @@ namespace Memstate.Runner
         }
     }
 
-    class RedisServerCommand : ICommand
+    internal class RedisServerCommand : ICommand
     {
         public event EventHandler Done;
 
@@ -88,12 +88,17 @@ namespace Memstate.Runner
                     var key = getMatch.Groups["key"].Value;
                     var val = getMatch.Groups["val"].Value;
                     var query = new GetQuery(key);
-                    string result = await _host.TheEngine.Execute(query);
+                    var result = await _host.TheEngine.Execute(query);
                     Console.WriteLine(result);
                 }
-                else if (line == "exit") break;
-
-                else Console.WriteLine("ERROR: Bad command");
+                else if (line == "exit")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("ERROR: Bad command");
+                }
             }
             Done?.Invoke(this, EventArgs.Empty);
         }

@@ -1,7 +1,7 @@
-using Memstate.Configuration;
-using NUnit.Framework;
 using System.Linq;
 using System.Threading.Tasks;
+using Memstate.Configuration;
+using NUnit.Framework;
 
 namespace Memstate.Test.DispatchProxy
 {

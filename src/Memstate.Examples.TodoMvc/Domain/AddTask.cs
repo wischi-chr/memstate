@@ -17,28 +17,28 @@ namespace Memstate.Examples.TodoMvc.Domain
             Description = description;
             DueBy = dueBy;
         }
-        
+
         [JsonProperty]
         public Guid ListId { get; private set; }
 
         [JsonProperty]
         public Guid TaskId { get; private set; }
-        
+
         [JsonProperty]
         public string Title { get; private set; }
-        
+
         [JsonProperty]
         public string Description { get; private set; }
-        
+
         [JsonProperty]
         public DateTime? DueBy { get; private set; }
-        
+
         public override Task Execute(TodoModel model)
         {
             var task = new Task(TaskId, Title, Description, DueBy);
 
             var list = model.Lists[ListId];
-            
+
             list.Add(task);
 
             return task;

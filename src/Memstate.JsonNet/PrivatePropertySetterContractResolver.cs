@@ -19,7 +19,7 @@ namespace Memstate.JsonNet
                 var property = member as PropertyInfo;
                 if (property != null)
                 {
-                    var hasPrivateSetter = property.GetSetMethod(nonPublic:true) != null;
+                    var hasPrivateSetter = property.GetSetMethod(nonPublic: true) != null;
                     prop.Writable = hasPrivateSetter;
                 }
             }

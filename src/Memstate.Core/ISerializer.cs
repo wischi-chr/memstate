@@ -29,14 +29,14 @@ namespace Memstate
 
         public object FromString(string s)
         {
-            var bytes  = Convert.FromBase64String(s);
+            var bytes = Convert.FromBase64String(s);
             return this.Deserialize(bytes);
         }
     }
 
     public class BinaryFormatterAdapter : BinarySerializer
     {
-        readonly BinaryFormatter _formatter = new BinaryFormatter();
+        private readonly BinaryFormatter _formatter = new BinaryFormatter();
 
         public override object ReadObject(Stream stream)
             => _formatter.Deserialize(stream);
@@ -53,8 +53,8 @@ namespace Memstate
 
         IEnumerable<T> ReadObjects<T>(Stream stream);
 
-        String ToString(object @object);
+        string ToString(object @object);
 
-        object FromString(String s);
+        object FromString(string s);
     }
 }

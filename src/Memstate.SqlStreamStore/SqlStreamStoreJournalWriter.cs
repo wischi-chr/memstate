@@ -21,9 +21,9 @@ namespace Memstate.SqlStreamStore
         protected override void OnCommandBatch(IEnumerable<Command> commands)
         {
             var messages = commands.Select(ToNewStreamMessage).ToArray();
-           var result =  _streamStore.AppendToStream(_streamId, ExpectedVersion.Any, messages )
-               .GetAwaiter()
-               .GetResult();
+            var result = _streamStore.AppendToStream(_streamId, ExpectedVersion.Any, messages)
+                .GetAwaiter()
+                .GetResult();
         }
 
         private NewStreamMessage ToNewStreamMessage(Command command)

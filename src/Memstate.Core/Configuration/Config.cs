@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using TinyIoC;
 using System.Text;
+using TinyIoC;
 
 namespace Memstate.Configuration
 {
@@ -53,15 +53,21 @@ namespace Memstate.Configuration
                 {
                     lock (_lock)
                     {
-                        if (_current == null) _current = BuildDefault();
+                        if (_current == null)
+                        {
+                            _current = BuildDefault();
+                        }
                     }
                 }
-                
+
                 return _current;
             }
             internal set
             {
-                lock(_lock) _current = value;
+                lock (_lock)
+                {
+                    _current = value;
+                }
             }
         }
 
@@ -118,7 +124,7 @@ namespace Memstate.Configuration
         /// </summary>
         public T GetSettings<T>() where T : Settings
         {
-            if (_singletonCache.TryGetValue(typeof(T), out object result))
+            if (_singletonCache.TryGetValue(typeof(T), out var result))
             {
                 return (T)result;
             }
@@ -136,12 +142,12 @@ namespace Memstate.Configuration
         /// properties on the object.
         /// </summary>
         /// <param name="prefix">Prefix excluding colon</param>
-        public void Bind(Object @object, string prefix)
+        public void Bind(object @object, string prefix)
         {
-            foreach(var property in @object.GetType().GetProperties())
+            foreach (var property in @object.GetType().GetProperties())
             {
                 var candidateKey = prefix + ":" + property.Name;
-                if (Data.TryGetValue(candidateKey, out string value))
+                if (Data.TryGetValue(candidateKey, out var value))
                 {
                     Console.WriteLine("Bind (" + candidateKey + ") = (" + value + ")");
                     property.SetValue(@object, Convert(value, property.PropertyType));
@@ -191,7 +197,10 @@ namespace Memstate.Configuration
             {
                 return converter.Invoke(value);
             }
-            else throw new NotImplementedException("Conversion to type " + type.FullName + " not supported");
+            else
+            {
+                throw new NotImplementedException("Conversion to type " + type.FullName + " not supported");
+            }
         }
 
         public override string ToString()
@@ -204,7 +213,7 @@ namespace Memstate.Configuration
             builder.AppendLine(nameof(Version) + "=" + Version);
 
             builder.AppendLine("-- DATA --");
-            foreach(var key in Data.Keys)
+            foreach (var key in Data.Keys)
             {
                 builder.AppendLine(key + "=" + Data[key]);
             }
@@ -215,10 +224,10 @@ namespace Memstate.Configuration
         public static readonly Dictionary<Type, Func<string, object>> Converters
             = new Dictionary<Type, Func<string, object>>()
             {
-                {typeof(Int32), s => Int32.Parse(s)},
-                {typeof(Int64), s => Int64.Parse(s)},
+                {typeof(int), s => int.Parse(s)},
+                {typeof(long), s => long.Parse(s)},
                 {typeof(bool), s => bool.Parse(s)},
                 {typeof(string), s => s}
             };
-    }    
+    }
 }

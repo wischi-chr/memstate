@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
@@ -47,7 +46,7 @@ namespace Memstate.Benchmarks
         {
             //_engine.DisposeAsync().Wait();
         }
-        
+
         [Benchmark(OperationsPerInvoke = Iterations)]
         public async Task CommandRoundtrip()
         {

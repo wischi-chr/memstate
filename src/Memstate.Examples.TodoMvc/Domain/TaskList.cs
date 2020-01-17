@@ -8,13 +8,13 @@ namespace Memstate.Examples.TodoMvc.Domain
     public class TaskList
     {
         private readonly HashSet<Task> _tasks = new HashSet<Task>();
-        
+
         public TaskList(Guid id, string name)
         {
             Id = id;
             Name = name;
         }
-        
+
         public Guid Id { get; }
 
         public string Name { get; private set; }

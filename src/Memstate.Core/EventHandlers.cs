@@ -23,7 +23,7 @@ namespace Memstate
 
         private void OnCommandExecuted(JournalRecord journalRecord, bool isLocal, IEnumerable<Event> events)
         {
-            foreach(var @event in events)
+            foreach (var @event in events)
             {
                 if (_handlers.TryGetValue(@event.GetType(), out var eventSubscription))
                 {
@@ -51,16 +51,25 @@ namespace Memstate
             public ConditionalHandler(Action<Event> handler, IEventFilter filter = null)
             {
                 _handler = handler;
-                if (filter == null) _matches = Yes;
-                else _matches = filter.Accept;
+                if (filter == null)
+                {
+                    _matches = Yes;
+                }
+                else
+                {
+                    _matches = filter.Accept;
+                }
             }
 
             public void Invoke(Event item)
             {
-                if (_matches.Invoke(item)) _handler(item);
+                if (_matches.Invoke(item))
+                {
+                    _handler(item);
+                }
             }
 
-            private static Func<Event, bool> Yes = e => true;
+            private static readonly Func<Event, bool> Yes = e => true;
         }
     }
 }

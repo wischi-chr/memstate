@@ -22,7 +22,10 @@ namespace Memstate.Configuration
             foreach (var line in lines.Select(s => s.Trim()))
             {
                 //Skip comments and empty lines
-                if (string.IsNullOrEmpty(line) || line[0] == '#') continue;
+                if (string.IsNullOrEmpty(line) || line[0] == '#')
+                {
+                    continue;
+                }
 
                 if (sectionMatcher.TryMatch(line, out var sectionMatch))
                 {
@@ -54,7 +57,11 @@ namespace Memstate.Configuration
 
         internal static void MergeIfExists(string file, Dictionary<string, string> args)
         {
-            if (!File.Exists(file)) return;
+            if (!File.Exists(file))
+            {
+                return;
+            }
+
             var lines = File.ReadAllLines(file);
             foreach (var pair in Parse(lines))
             {

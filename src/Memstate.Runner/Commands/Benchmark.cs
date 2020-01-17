@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Memstate.Models;
-using Memstate.Logging;
 using Memstate.Configuration;
+using Memstate.Logging;
+using Memstate.Models;
 
 namespace Memstate.Runner.Commands
 {
     public abstract class Benchmark : ICommand
     {
         public event EventHandler Done = (sender, args) => { };
-        
+
         protected EngineSettings Settings { get; private set; }
 
         internal ILog Logger { get; private set; }
@@ -49,7 +49,7 @@ namespace Memstate.Runner.Commands
             await Engine.DisposeAsync();
 
             await Totals(totals);
-            
+
             Done?.Invoke(this, EventArgs.Empty);
         }
 

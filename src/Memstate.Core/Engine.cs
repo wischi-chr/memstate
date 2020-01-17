@@ -61,7 +61,7 @@ namespace Memstate
 
         public async Task<TResult> Execute<TResult>(Command<TModel, TResult> command)
         {
-            return (TResult) await ExecuteUntyped(command);
+            return (TResult)await ExecuteUntyped(command);
         }
 
         public Task Execute(Command<TModel> command)
@@ -152,7 +152,11 @@ namespace Memstate
         private void OnRecordReceived(JournalRecord record)
         {
 
-            if (_stopped) return;
+            if (_stopped)
+            {
+                return;
+            }
+
             TaskCompletionSource<object> completion = null;
 
             try

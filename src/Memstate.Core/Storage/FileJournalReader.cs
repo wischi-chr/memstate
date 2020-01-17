@@ -22,7 +22,7 @@ namespace Memstate
 
         public Task DisposeAsync()
         {
-            return Task.Run((Action) _journalStream.Dispose);
+            return Task.Run(_journalStream.Dispose);
         }
 
         public IEnumerable<JournalRecord> GetRecords(long fromRecord = 0)

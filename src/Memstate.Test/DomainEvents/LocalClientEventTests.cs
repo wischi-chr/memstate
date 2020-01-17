@@ -21,7 +21,7 @@ namespace Memstate.Test
             var engine = await Engine.Start<UsersModel>();
             _client = new LocalClient<UsersModel>(engine);
         }
-        
+
         [Test]
         public async Task Subscribe_with_filter()
         {
@@ -52,7 +52,7 @@ namespace Memstate.Test
             await _client.Subscribe<Created>(e => handledEvents++);
             var user = await _client.Execute(new Create("Memstate"));
             await _client.Execute(new Delete(user.Id));
-            
+
             Assert.AreEqual(1, handledEvents);
         }
 
@@ -75,7 +75,7 @@ namespace Memstate.Test
         public async Task Unsubscribe_from_an_event()
         {
             var eventsReceived = new List<Event>();
-            
+
 
             await _client.Subscribe<Created>(eventsReceived.Add);
             await _client.Subscribe<Deleted>(eventsReceived.Add);
@@ -87,7 +87,7 @@ namespace Memstate.Test
             await _client.Unsubscribe<Created>();
 
             await _client.Execute(new Create("Origo"));
-            
+
             Assert.AreEqual(1, eventsReceived.Count);
         }
     }

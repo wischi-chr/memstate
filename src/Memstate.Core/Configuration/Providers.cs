@@ -43,7 +43,7 @@ namespace Memstate
         protected static T InstanceFromTypeName(string typeName)
         {
             var type = Type.GetType(typeName, throwOnError: true, ignoreCase: true);
-            return (T) Activator.CreateInstance(type);
+            return (T)Activator.CreateInstance(type);
         }
 
         protected T AutoResolve()

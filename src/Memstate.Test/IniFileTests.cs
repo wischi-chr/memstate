@@ -7,16 +7,16 @@ namespace Memstate.Test
     [TestFixture]
     public class IniFileTests
     {
-        Config _config;
-        
+        private Config _config;
+
         [SetUp]
         public void TestSetup()
         {
             var validLines = validConfig.Split("\n");
             var args = new Dictionary<string, string>();
-            foreach(KeyValuePair<string,string> line in IniFile.Parse(validLines))
+            foreach (var line in IniFile.Parse(validLines))
             {
-                args[line.Key] = line.Value;  
+                args[line.Key] = line.Value;
             }
             _config = new Config(args);
         }
@@ -50,10 +50,13 @@ namespace Memstate.Test
 
         private static IEnumerable<string> Keys()
         {
-            for (int i = 1; i < 8; i++) yield return "key" + i; 
+            for (var i = 1; i < 8; i++)
+            {
+                yield return "key" + i;
+            }
         }
 
-        const string validConfig = @"
+        private const string validConfig = @"
 key1=key1
 # whitepace, including trailing!
 key2 = key2

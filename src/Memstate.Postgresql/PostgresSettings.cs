@@ -49,10 +49,26 @@ namespace Memstate.Postgres
             get
             {
                 var builder = new NpgsqlConnectionStringBuilder(_connectionStringTemplate);
-                if (Host != null) builder.Host = Host;
-                if (Username != null) builder.Username = Username;
-                if (Database != null) builder.Database = Database;
-                if (Password != null) builder.Password = Password;
+                if (Host != null)
+                {
+                    builder.Host = Host;
+                }
+
+                if (Username != null)
+                {
+                    builder.Username = Username;
+                }
+
+                if (Database != null)
+                {
+                    builder.Database = Database;
+                }
+
+                if (Password != null)
+                {
+                    builder.Password = Password;
+                }
+
                 return builder.ToString();
             }
             set => _connectionStringTemplate = value;

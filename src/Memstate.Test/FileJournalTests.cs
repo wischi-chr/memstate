@@ -1,10 +1,10 @@
-using NUnit.Framework;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Memstate.Configuration;
 using Memstate.Models.KeyValue;
+using NUnit.Framework;
 
 namespace Memstate.Test
 {
@@ -25,7 +25,7 @@ namespace Memstate.Test
 
             settings.StreamName = Stream;
             var provider = cfg.GetStorageProvider();
-            
+
             //Write NumRecords entries 
             var writer = provider.CreateJournalWriter(0);
             foreach (var i in Enumerable.Range(1, NumRecords))
@@ -48,7 +48,11 @@ namespace Memstate.Test
             while (true)
             {
                 var line = streamReader.ReadLine();
-                if (line == null) break;
+                if (line == null)
+                {
+                    break;
+                }
+
                 Console.WriteLine("> " + line);
                 lines++;
             }

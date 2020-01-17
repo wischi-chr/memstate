@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Memstate.Host.Web.Controllers
 {
     public class MetricsController : Controller
-    {        
+    {
         [HttpGet("metrics")]
         public async Task<IActionResult> GetMetrics()
         {

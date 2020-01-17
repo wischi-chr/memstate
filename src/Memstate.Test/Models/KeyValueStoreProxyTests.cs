@@ -1,9 +1,9 @@
-using Memstate.Models.KeyValue;
-using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
 using Memstate.Configuration;
 using Memstate.Models;
+using Memstate.Models.KeyValue;
+using NUnit.Framework;
 
 namespace Memstate.Test.Models
 {
@@ -51,10 +51,10 @@ namespace Memstate.Test.Models
         [Test]
         public void Remove_throws_when_key_not_exists()
         {
-            Assert.Throws<AggregateException> (() =>
-            {
-                _keyValueStore.Remove("KEY");
-            });
+            Assert.Throws<AggregateException>(() =>
+           {
+               _keyValueStore.Remove("KEY");
+           });
         }
     }
 }

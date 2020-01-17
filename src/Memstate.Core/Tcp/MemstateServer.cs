@@ -34,7 +34,7 @@ namespace Memstate.Tcp
         public MemstateServer(Engine<T> engine)
         {
             var settings = Config.Current.GetSettings<ServerSettings>();
-            settings.Validate(); 
+            settings.Validate();
             _engine = engine;
             var ip = IPAddress.Parse(settings.Ip);
             var endPoint = new IPEndPoint(ip, settings.Port);
@@ -109,14 +109,17 @@ namespace Memstate.Tcp
             {
                 var message = messages.TakeOrDefault(cancellationToken);
 
-                if (message == null) break;
+                if (message == null)
+                {
+                    break;
+                }
 
                 var bytes = serializer.Serialize(message);
                 var packet = Packet.Create(bytes, ++messageId);
                 await packet.WriteTo(stream);
                 await stream.FlushAsync();
             }
-        } 
+        }
 
         public async Task Stop()
         {

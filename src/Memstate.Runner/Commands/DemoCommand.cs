@@ -19,9 +19,9 @@ namespace Memstate.Runner.Commands
         /// DemoCommand does not terminate so this event never fires.
         /// </summary>
         public event EventHandler Done = (sender, args) => { };
-        
+
         private CancellationTokenSource _cancellationTokenSource;
-        
+
         private Engine<KeyValueStore<int>> _engine;
 
         private Task _producer;

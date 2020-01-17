@@ -472,7 +472,7 @@ namespace Memstate.Models.Redis
 
         public DateTime? Expires(string key)
         {
-            return _expirationKeys.TryGetValue(key, out var expiration) ? (DateTime?) expiration.Expires : null;
+            return _expirationKeys.TryGetValue(key, out var expiration) ? (DateTime?)expiration.Expires : null;
         }
 
         public string[] GetExpiredKeys()

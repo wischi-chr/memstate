@@ -21,7 +21,7 @@ namespace System.Test
         {
             Config.Current = config;
             Console.WriteLine(config);
-            
+
             var provider = config.GetStorageProvider();
             provider.Initialize();
             var writer = provider.CreateJournalWriter(0);

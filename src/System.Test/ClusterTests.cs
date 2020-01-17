@@ -38,7 +38,7 @@ namespace System.Test
             foreach (var reader in readers)
             {
                 await reader.EnsureVersion(writer.LastRecordNumber);
-                
+
                 var strings = await reader.Execute(new GetStringsQuery()).ConfigureAwait(false);
 
                 Assert.AreEqual(records, strings.Count);
@@ -119,7 +119,7 @@ namespace System.Test
                 await writer.DisposeAsync().ConfigureAwait(false);
             }
 
-            for(var i = 0; i < readers.Length; i++)
+            for (var i = 0; i < readers.Length; i++)
             {
                 var reader = readers[i];
                 Console.WriteLine("Reader index: " + i);

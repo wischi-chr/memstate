@@ -19,11 +19,13 @@ namespace Memstate
 
         public Task<Engine<T>> Build<T>() where T : class
         {
-            Type modelType = typeof(T); 
+            var modelType = typeof(T);
             if (modelType.IsInterface)
+            {
                 modelType = DeriveClassFromInterface(modelType);
+            }
 
-            var initialState = (T) Activator.CreateInstance(modelType);
+            var initialState = (T)Activator.CreateInstance(modelType);
             return Build(initialState);
         }
 
@@ -33,7 +35,10 @@ namespace Memstate
             var idx = interfaceName.LastIndexOf(".I");
 
             //Inner interfaces will have a plus sign instead of dot
-            if (idx == -1) idx = interfaceName.LastIndexOf("+I");
+            if (idx == -1)
+            {
+                idx = interfaceName.LastIndexOf("+I");
+            }
 
             var className = interfaceName.Remove(idx + 1, 1);
 
@@ -44,9 +49,9 @@ namespace Memstate
         public async Task<Engine<T>> Build<T>(T initialState) where T : class
         {
             var reader = _storageProvider.CreateJournalReader();
-            var model = Load(reader, initialState, out long lastRecordNumber);
+            var model = Load(reader, initialState, out var lastRecordNumber);
             var nextRecordNumber = lastRecordNumber + 1;
-            await reader.DisposeAsync().ConfigureAwait(false);                                                                     
+            await reader.DisposeAsync().ConfigureAwait(false);
 
             var writer = _storageProvider.CreateJournalWriter(nextRecordNumber);
             var subscriptionSource = _storageProvider.CreateJournalSubscriptionSource();

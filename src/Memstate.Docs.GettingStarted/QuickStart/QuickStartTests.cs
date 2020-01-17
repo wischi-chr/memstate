@@ -10,23 +10,31 @@ namespace Memstate.Docs.GettingStarted.QuickStart
 {
     public class QuickStartTests
     {
-        private string WireFileName = "smoke_test_with_defaults_wire";
-        private string WireJournalFile = "smoke_test_with_defaults_wire.journal";
+        private readonly string WireFileName = "smoke_test_with_defaults_wire";
+        private readonly string WireJournalFile = "smoke_test_with_defaults_wire.journal";
 
-        private string JsonFileName = "smoke_test_with_defaults_json";
-        private string JsonJournalFile = "smoke_test_with_defaults_json.journal";
+        private readonly string JsonFileName = "smoke_test_with_defaults_json";
+        private readonly string JsonJournalFile = "smoke_test_with_defaults_json.journal";
 
         [SetUp]
         [TearDown]
         public void SetupTeardown()
         {
-            if (File.Exists(WireJournalFile)) File.Delete(WireJournalFile);
-            if (File.Exists(JsonJournalFile)) File.Delete(JsonJournalFile);
+            if (File.Exists(WireJournalFile))
+            {
+                File.Delete(WireJournalFile);
+            }
+
+            if (File.Exists(JsonJournalFile))
+            {
+                File.Delete(JsonJournalFile);
+            }
+
             Config.Reset();
         }
 
         [Test]
-         public async Task Simple_end_to_end_getting_started_using_default_wire_serializer_with_filesytem_storage()
+        public async Task Simple_end_to_end_getting_started_using_default_wire_serializer_with_filesytem_storage()
         {
             Print("GIVEN I start a new Memstate engine for a LoyaltyDB using default settings");
             Print("   (using Wire format  & local filesystem storage)");
@@ -35,9 +43,9 @@ namespace Memstate.Docs.GettingStarted.QuickStart
             var settings = config.GetSettings<EngineSettings>();
             settings.StreamName = WireFileName;
             var engine = await Engine.Start<LoyaltyDB>();
-            
+
             Print("AND I initialise the database with 20 customers, each with 10 loyalty points");
-            for (int i = 0; i < 20; i++)
+            for (var i = 0; i < 20; i++)
             {
                 await engine.Execute(new InitCustomer(i + 1, 10));
             }

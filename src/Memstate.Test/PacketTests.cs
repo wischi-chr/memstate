@@ -9,7 +9,7 @@ namespace Memstate.Test
 {
     public class PacketTests
     {
-        private static IList<int> _payloadSizes = new List<int>
+        private static readonly IList<int> _payloadSizes = new List<int>
         {
             0,
             127,
@@ -26,14 +26,14 @@ namespace Memstate.Test
         [Test]
         public void IsTerminal_is_default_when_creating_from_factory_method()
         {
-            Packet packet = Packet.Create(new byte[42], 42);
+            var packet = Packet.Create(new byte[42], 42);
             Assert.IsTrue(packet.IsTerminal);
         }
 
         [TestCaseSource(nameof(_payloadSizes))]
         public async Task When_writing_to_stream_Size_property_corresponds_to_bytes_written(int payloadSize)
         {
-            Packet packet = Packet.Create(new byte[payloadSize], 1);
+            var packet = Packet.Create(new byte[payloadSize], 1);
 
             var memoryStream = new MemoryStream();
             await packet.WriteTo(memoryStream);
@@ -44,14 +44,14 @@ namespace Memstate.Test
         public async Task ReadAsync_returns_identical_packet(int payloadSize)
         {
             //Arrange
-            Packet packet = Packet.Create(new byte[payloadSize], 1);
+            var packet = Packet.Create(new byte[payloadSize], 1);
             var stream = new MemoryStream();
             await packet.WriteTo(stream);
             stream.Position = 0;
             var token = new CancellationToken();
 
             //Act
-            Packet copy = await Packet.Read(stream, token);
+            var copy = await Packet.Read(stream, token);
 
             //Assert
             Assert.AreEqual(packet.Size, copy.Size);
@@ -65,7 +65,7 @@ namespace Memstate.Test
         public async Task When_stream_is_blocked_cancelling_throws_a_TaskCancelledException(int payloadSize)
         {
             //Arrange
-            Packet packet = Packet.Create(new byte[payloadSize], 1);
+            var packet = Packet.Create(new byte[payloadSize], 1);
             using (var stream = new MemoryStream())
             {
                 await packet.WriteTo(stream);

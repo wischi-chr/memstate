@@ -14,7 +14,7 @@ namespace Memstate.AppMetrics
             _mtx = mtx;
         }
 
-        public AppMetricsProvider(): this(DefaultConfig())
+        public AppMetricsProvider() : this(DefaultConfig())
         {
 
         }

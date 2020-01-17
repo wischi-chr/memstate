@@ -6,7 +6,7 @@ namespace Memstate.Examples.TodoMvc.Domain
     public class Task : IComparable<Task>
     {
         private readonly HashSet<Category> _categories = new HashSet<Category>();
-        
+
         public Task(Guid id, string title, string description, DateTime? dueBy = null)
         {
             Id = id;

@@ -6,7 +6,7 @@ namespace Memstate.Test.Models.Redis
     public abstract class RedisTestBase
     {
         protected RedisModel Target;
-        
+
         [SetUp]
         public void SetUp()
         {

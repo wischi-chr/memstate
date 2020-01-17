@@ -17,7 +17,7 @@ namespace Memstate.Tcp
 
         private readonly ILog _logger;
 
-        private readonly ConcurrentDictionary<Type, EventMatcher> _subscriptions; 
+        private readonly ConcurrentDictionary<Type, EventMatcher> _subscriptions;
 
         public Session(Engine<T> engine)
         {

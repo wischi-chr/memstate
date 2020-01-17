@@ -9,10 +9,10 @@ namespace Memstate.Postgres.Tests.Domain
         {
             TaskId = taskId;
         }
-        
+
         [JsonProperty]
         public Guid TaskId { get; private set; }
-        
+
         public override void Execute(Todo model)
         {
             model.Tasks.Remove(TaskId);

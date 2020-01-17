@@ -19,8 +19,8 @@ namespace Memstate.Test.Proxy
             {
             }
 
-            public void ImplicitCommand(){}
-            
+            public void ImplicitCommand() { }
+
             [Command]
             public int ExplicitCommandWithResult()
             {
@@ -40,7 +40,7 @@ namespace Memstate.Test.Proxy
 
             public void GenericCommand<T>(T item)
             {
-                
+
             }
 
             public T GenericQuery<T>(T item)
@@ -66,7 +66,7 @@ namespace Memstate.Test.Proxy
         [Test]
         public void Implicit_command_IsCommand()
         {
-            var target = _map. GetOperationInfo("ImplicitCommand");
+            var target = _map.GetOperationInfo("ImplicitCommand");
             Assert.True(target is CommandInfo<TestModel>);
         }
 

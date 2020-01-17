@@ -1,5 +1,5 @@
-﻿using Memstate.Models.Graph;
-using System.Linq;
+﻿using System.Linq;
+using Memstate.Models.Graph;
 using static Memstate.Models.Graph.GraphModel;
 
 namespace Memstate.Docs.GettingStarted.QuickStartGraph.Commands

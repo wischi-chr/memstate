@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Memstate.Docs.GettingStarted.Storage
 {
-    class StorageTests
+    internal class StorageTests
     {
     }
 }

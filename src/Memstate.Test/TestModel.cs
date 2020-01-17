@@ -43,7 +43,7 @@ namespace Memstate.Test
 
         void AddCustomer(string name);
         void GenericCommand<T>(T item);
-        R ComplexGeneric<T, R>(KeyValuePair<T,R> pair );
+        R ComplexGeneric<T, R>(KeyValuePair<T, R> pair);
         T GenericQuery<T>(T item);
         T GenericQuery<T>(T item, int s);
         int DefaultArgs(int a, int b, int c = 42);
@@ -53,13 +53,13 @@ namespace Memstate.Test
     [Serializable]
     public class TestModel : ITestModel
     {
-        private List<Customer> _customers = new List<Customer>();
+        private readonly List<Customer> _customers = new List<Customer>();
 
         public IEnumerable<Customer> Customers
         {
             get
             {
-                foreach (Customer customer in _customers)
+                foreach (var customer in _customers)
                 {
                     yield return customer;
                 }
@@ -136,7 +136,7 @@ namespace Memstate.Test
         /// <returns></returns>
         public IEnumerable<string> GetNames()
         {
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 yield return i.ToString();
             }
@@ -154,7 +154,7 @@ namespace Memstate.Test
         public void AddCustomer(string name)
         {
             CommandsExecuted++;
-            _customers.Add(new Customer{Name = name});
+            _customers.Add(new Customer { Name = name });
         }
 
         public void GenericCommand<T>(T item)
@@ -163,7 +163,7 @@ namespace Memstate.Test
         }
 
         [Command]
-        public R ComplexGeneric<T, R>(KeyValuePair<T,R> pair )
+        public R ComplexGeneric<T, R>(KeyValuePair<T, R> pair)
         {
             CommandsExecuted++;
             return pair.Value;
@@ -190,13 +190,13 @@ namespace Memstate.Test
         }
     }
 
-	[Serializable]
+    [Serializable]
     public class GetNumberOfCommandsExecutedQuery : Query<TestModel, int>
     {
-	    public GetNumberOfCommandsExecutedQuery()
-	    {
-	        ResultIsIsolated = true;
-	    }
+        public GetNumberOfCommandsExecutedQuery()
+        {
+            ResultIsIsolated = true;
+        }
 
         public override int Execute(TestModel db)
         {
@@ -207,7 +207,7 @@ namespace Memstate.Test
     [Serializable]
     public class TestCommandWithoutResult : Command<TestModel>
     {
-        public  override void Execute(TestModel model)
+        public override void Execute(TestModel model)
         {
             model.CommandsExecuted++;
         }

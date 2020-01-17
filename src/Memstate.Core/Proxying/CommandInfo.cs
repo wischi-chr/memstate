@@ -32,21 +32,23 @@ namespace Memstate
         protected override Task<object> ExecuteProxy(Client<T> engine, MethodCall methodCall, string signature)
         {
             var genericArgs = methodCall.TargetMethod.GetGenericArguments();
-            var proxyCommand = new ProxyCommand<T>(signature, methodCall.Args, genericArgs);
-            proxyCommand.ResultIsIsolated = ResultIsIsolated;
+            var proxyCommand = new ProxyCommand<T>(signature, methodCall.Args, genericArgs)
+            {
+                ResultIsIsolated = ResultIsIsolated
+            };
             return engine.Execute(proxyCommand);
         }
 
-        protected async override Task<object> ExecuteMapped(Client<T> engine, MethodCall methodCallMessage, object mappedCommand)
+        protected override async Task<object> ExecuteMapped(Client<T> engine, MethodCall methodCallMessage, object mappedCommand)
         {
             //Command<TModel>.Execute is void
             //Command<TModel,TResult>.Execute returns TResult 
             var commandHasResult = mappedCommand.GetType().GenericTypeArguments.Length == 2;
             if (commandHasResult)
             {
-                return engine.Execute((Command<T, object>) mappedCommand);
+                return engine.Execute((Command<T, object>)mappedCommand);
             }
-            await engine.Execute((Command<T>) mappedCommand);
+            await engine.Execute((Command<T>)mappedCommand);
             return Task.FromResult<object>(null);
         }
     }

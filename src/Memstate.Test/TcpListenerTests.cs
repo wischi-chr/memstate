@@ -15,14 +15,14 @@ namespace Memstate.Test
         [Test]
         public void Accept_throws_when_Socket_is_closed()
         {
-            TcpListener listener = new TcpListener(IPAddress.Any, 43675);
+            var listener = new TcpListener(IPAddress.Any, 43675);
             listener.Start();
-            Task<TcpClient> task = listener.AcceptTcpClientAsync();
+            var task = listener.AcceptTcpClientAsync();
             Task.Delay(1000);
             listener.Stop();
             Assert.Throws<AggregateException>(() =>
             {
-                TcpClient unused = task.Result;
+                var unused = task.Result;
             });
         }
     }

@@ -22,7 +22,7 @@ namespace Memstate.Postgres.Tests
         public void CanExtractInitSqlResource()
         {
             var initSql = _settings.InitSql.Value;
-            Assert.True(!String.IsNullOrEmpty(initSql));
+            Assert.True(!string.IsNullOrEmpty(initSql));
         }
 
         [Test]
@@ -42,8 +42,8 @@ namespace Memstate.Postgres.Tests
         [Test]
         public void PasswordCanBeSetUsingEnvironmentVariable()
         {
-            string key = "MEMSTATE_POSTGRES_PASSWORD";
-            string value = "Password12!";
+            var key = "MEMSTATE_POSTGRES_PASSWORD";
+            var value = "Password12!";
             Environment.SetEnvironmentVariable(key, value);
             var config = Config.Reset();
             var settings = config.GetSettings<PostgresSettings>();

@@ -14,7 +14,8 @@ namespace Memstate
 
         internal abstract object ExecuteImpl(object model);
 
-        protected void RaiseEvent(Event @event) {
+        protected void RaiseEvent(Event @event)
+        {
             ExecutionContext.Current.AddEvent(@event);
         }
     }
@@ -26,7 +27,7 @@ namespace Memstate
 
         internal override object ExecuteImpl(object model)
         {
-            Execute((TModel) model);
+            Execute((TModel)model);
             return null;
         }
     }
@@ -38,7 +39,7 @@ namespace Memstate
 
         internal override object ExecuteImpl(object model)
         {
-            return Execute((TModel) model);
+            return Execute((TModel)model);
         }
     }
 }

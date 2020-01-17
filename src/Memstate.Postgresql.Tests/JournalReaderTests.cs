@@ -1,21 +1,21 @@
-﻿using System.Threading;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using Memstate.Configuration;
 using Memstate.Postgres.Tests.Domain;
 using Npgsql;
 using NUnit.Framework;
-using System.Linq;
-using Memstate.Configuration;
 
 namespace Memstate.Postgres.Tests
 {
     [TestFixture]
     public class JournalReaderTests
     {
-        private  PostgresProvider _provider;
-        private  IJournalReader _journalReader;
-        private  IJournalWriter _journalWriter;
-        private  ISerializer _serializer;
+        private PostgresProvider _provider;
+        private IJournalReader _journalReader;
+        private IJournalWriter _journalWriter;
+        private ISerializer _serializer;
 
         [SetUp]
         public void Setup()
@@ -92,7 +92,7 @@ namespace Memstate.Postgres.Tests
                 {
                     while (reader.Read())
                     {
-                        var journalRecord = new JournalRecord((long) reader[0], (DateTime) reader[1], null);
+                        var journalRecord = new JournalRecord((long)reader[0], (DateTime)reader[1], null);
 
                         journalRecords.Add(journalRecord);
                     }

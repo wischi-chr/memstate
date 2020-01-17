@@ -176,7 +176,7 @@ namespace Memstate.Models.Redis
             var set = GetSortedSet(key);
 
             return set?.Where(e => e.Member == member)
-                .Select(e => (double?) e.Score)
+                .Select(e => (double?)e.Score)
                 .SingleOrDefault();
         }
 
@@ -240,7 +240,7 @@ namespace Memstate.Models.Redis
         {
             var rank = ZRank(key, member);
 
-            return rank.HasValue ? (int?) (GetSortedSet(key).Count - rank.Value - 1) : null;
+            return rank.HasValue ? (int?)(GetSortedSet(key).Count - rank.Value - 1) : null;
         }
 
         public int ZUnionStore(

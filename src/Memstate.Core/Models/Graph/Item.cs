@@ -21,8 +21,7 @@ namespace Memstate.Models.Graph
 
             public object Get(string key)
             {
-                object result;
-                Props.TryGetValue(key, out result);
+                Props.TryGetValue(key, out var result);
                 return result;
             }
 

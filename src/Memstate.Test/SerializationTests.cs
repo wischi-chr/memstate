@@ -1,11 +1,10 @@
-﻿using NUnit.Framework;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-
 using Memstate.JsonNet;
 using Memstate.Test.EventfulTestDomain;
 using Memstate.Wire;
-using System;
+using NUnit.Framework;
 
 namespace Memstate.Test
 {
@@ -27,7 +26,7 @@ namespace Memstate.Test
             serializer.WriteObject(stream, poco);
 
             stream.Position = 0;
-            var clone = (Poco) serializer.ReadObject(stream);
+            var clone = (Poco)serializer.ReadObject(stream);
             Assert.AreEqual(poco.Name, clone.Name);
             Assert.AreEqual(poco.Age, clone.Age);
         }
@@ -59,7 +58,8 @@ namespace Memstate.Test
     }
 
     [Serializable]
-    internal class Poco {
+    internal class Poco
+    {
         public string Name
         {
             get;

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using NUnit.Framework;
-using Memstate.Models.Geo;
 using System.IO;
+using System.Linq;
+using Memstate.Models.Geo;
+using NUnit.Framework;
 
 namespace Memstate.Test.Models
 {
     [TestFixture]
     public class GeoPointTests
     {
-        private static GeoSpatialIndex<String> _places;
+        private static GeoSpatialIndex<string> _places;
 
         public class GeoLocation
         {
@@ -48,22 +48,30 @@ namespace Memstate.Test.Models
         {
             var rnd = new Random();
             const int MAX_ITEMS = 10;
-            int items = 0;
+            var items = 0;
 
             using (var reader = new StringReader(raw))
             {
-                while(items < MAX_ITEMS)
+                while (items < MAX_ITEMS)
                 {
                     var line = reader.ReadLine();
-                    if (line == null) break;
-                    if (rnd.NextDouble() > 0.3) continue;
+                    if (line == null)
+                    {
+                        break;
+                    }
+
+                    if (rnd.NextDouble() > 0.3)
+                    {
+                        continue;
+                    }
+
                     items++;
 
                     var arr = line.Split('\t');
                     var name = arr[0];
 
-                    var lat = Double.Parse(arr[1], CultureInfo.InvariantCulture);
-                    var lon = Double.Parse(arr[2], CultureInfo.InvariantCulture);
+                    var lat = double.Parse(arr[1], CultureInfo.InvariantCulture);
+                    var lon = double.Parse(arr[2], CultureInfo.InvariantCulture);
                     var point = new GeoPoint(lat, lon);
                     yield return new GeoLocation(name, point);
                 }
@@ -83,7 +91,7 @@ namespace Memstate.Test.Models
         [Test]
         public void GeoPointToString()
         {
-            var gp = new GeoPoint(10,20);
+            var gp = new GeoPoint(10, 20);
             Assert.AreEqual("[10:20]", gp.ToString());
         }
 
@@ -100,7 +108,7 @@ namespace Memstate.Test.Models
             var actual = GeoPoint.Distance(a, b);
             var actualInverse = GeoPoint.Distance(b, a);
             Assert.AreEqual(actual, actualInverse, "dist(b,a) should equal dist(a,b)");
-            double faultTolerance = expectedDistance * 0.005;
+            var faultTolerance = expectedDistance * 0.005;
             Assert.AreEqual(expectedDistance, actual.ToKilometers(), faultTolerance);
         }
 
@@ -116,13 +124,13 @@ namespace Memstate.Test.Models
             foreach (var keyValuePair in within)
             {
                 var kms = keyValuePair.Value.ToKilometers();
-                Console.WriteLine($"{keyValuePair.Key} at distance {kms} km" );
+                Console.WriteLine($"{keyValuePair.Key} at distance {kms} km");
                 Assert.IsTrue(keyValuePair.Value.ToKilometers() <= radius);
             }
 
             //Double check and print any errors
             var withinNames = new HashSet<string>(within.Select(kvp => kvp.Key));
-            int failures = 0;
+            var failures = 0;
             foreach (var keyValuePair in _places)
             {
                 var name = keyValuePair.Key;
@@ -130,21 +138,21 @@ namespace Memstate.Test.Models
                 if (distance.ToKilometers() > radius && withinNames.Contains(name))
                 {
                     failures++;
-                    Console.WriteLine("false positive: " + name + ", d=" + distance );
+                    Console.WriteLine("false positive: " + name + ", d=" + distance);
                 }
                 if (distance.ToKilometers() <= radius && !withinNames.Contains(name))
                 {
                     failures++;
                     Console.WriteLine("false negative: " + name + ", d=" + distance);
                 }
-                
+
             }
             Assert.IsTrue(failures == 0, "failures: " + failures);
         }
 
 
         //swedish cities/locations taken from http://www.geonames.org/
-        private static string raw = @"Gåshällan	63.65	20.25
+        private static readonly string raw = @"Gåshällan	63.65	20.25
 Viggen	63.63333	20.23333
 Kallen	63.64167	20.21667
 Sörbölekobbarna	63.65	20.18333

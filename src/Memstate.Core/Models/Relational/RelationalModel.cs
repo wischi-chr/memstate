@@ -17,7 +17,7 @@ namespace Memstate.Models.Relational
         {
             For(typeof(T)).TryGetValue(id, out var entity);
 
-            return (T) entity;
+            return (T)entity;
         }
 
         public bool Exists<T>() where T : IEntity
@@ -132,7 +132,7 @@ namespace Memstate.Models.Relational
 
                 if (!set.ContainsKey(entity.Id))
                 {
-                    conflicts.Updates.Add(new EntityKey(entity) {Version = 0});
+                    conflicts.Updates.Add(new EntityKey(entity) { Version = 0 });
                 }
                 else if (set[entity.Id].Version != entity.Version)
                 {
@@ -155,7 +155,7 @@ namespace Memstate.Models.Relational
 
                 if (!set.TryGetValue(entity.Id, out var existing))
                 {
-                    conflicts.Deletes.Add(new EntityKey(entity) {Version = 0});
+                    conflicts.Deletes.Add(new EntityKey(entity) { Version = 0 });
                 }
                 else if (existing.Version != entity.Version)
                 {

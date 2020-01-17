@@ -11,12 +11,16 @@ namespace Memstate
         /// </summary>
         /// <value>The current.</value>
         public static ExecutionContext Current
-        { 
+        {
             get
             {
-                if (_current == null) _current = new ExecutionContext(-1);
+                if (_current == null)
+                {
+                    _current = new ExecutionContext(-1);
+                }
+
                 return _current;
-            } 
+            }
             set
             {
                 _current = value;

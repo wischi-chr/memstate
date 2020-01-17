@@ -1,7 +1,6 @@
 namespace System.Test
 {
     using System.Collections.Generic;
-
     using Memstate;
 
     public class AddStringCommand : Command<List<string>, int>

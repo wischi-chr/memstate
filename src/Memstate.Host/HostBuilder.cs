@@ -4,7 +4,7 @@ namespace Memstate.Host
 {
     public class HostBuilder<TModel> where TModel : class
     {
-        readonly HostSettings _settings;
+        private readonly HostSettings _settings;
 
         public HostBuilder()
         {

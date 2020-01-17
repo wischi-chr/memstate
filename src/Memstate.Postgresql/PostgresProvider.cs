@@ -1,9 +1,9 @@
-﻿using Memstate.Logging;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using Npgsql;
 using Memstate.Configuration;
+using Memstate.Logging;
+using Npgsql;
 using Npgsql.Logging;
-using System.Diagnostics;
 
 namespace Memstate.Postgres
 {
@@ -34,11 +34,15 @@ namespace Memstate.Postgres
 
         public override void Initialize()
         {
-            if (_initialized) return;
+            if (_initialized)
+            {
+                return;
+            }
+
             _log.Debug("Initializing...");
 
             var sql = Settings.InitSql.Value;
-            
+
             using (var connection = new NpgsqlConnection(Settings.ConnectionString))
             using (var command = connection.CreateCommand())
             {

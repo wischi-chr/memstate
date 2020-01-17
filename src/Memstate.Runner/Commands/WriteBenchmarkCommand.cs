@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Memstate.Models.KeyValue;
 using Memstate.Logging;
+using Memstate.Models.KeyValue;
 
 namespace Memstate.Runner.Commands
 {

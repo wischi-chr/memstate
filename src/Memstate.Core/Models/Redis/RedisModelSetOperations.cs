@@ -156,7 +156,7 @@ namespace Memstate.Models.Redis
 
             var result = new Dictionary<int, string>();
 
-            var randomIndicies = allowDuplicates ? (ICollection<int>) new List<int>(count) : new HashSet<int>();
+            var randomIndicies = allowDuplicates ? (ICollection<int>)new List<int>(count) : new HashSet<int>();
 
             while (randomIndicies.Count < count)
             {

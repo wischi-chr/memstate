@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Npgsql;
 using Memstate.Logging;
+using Npgsql;
 
 namespace Memstate.Postgres
 {
@@ -44,7 +44,7 @@ namespace Memstate.Postgres
                 {
                     sqlCommand.CommandText = string.Format(InsertSql, _settings.Table, values);
 
-                    commands.Select((c, i) => new {Index = i, Value = Convert.ToBase64String(_serializer.Serialize(c))})
+                    commands.Select((c, i) => new { Index = i, Value = Convert.ToBase64String(_serializer.Serialize(c)) })
                         .ToList()
                         .ForEach(item => sqlCommand.Parameters.AddWithValue($"@{item.Index}", item.Value));
 

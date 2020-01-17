@@ -11,9 +11,9 @@ namespace Memstate.SqlStreamStore
         private readonly IStreamStore _streamStore;
         private readonly StreamId _streamId;
         private readonly ISerializer _serializer;
-        
+
         public SqlStreamSourceJournalReader(
-            IStreamStore streamStore, 
+            IStreamStore streamStore,
             StreamId streamId,
             ISerializer serializer)
         {
@@ -21,7 +21,7 @@ namespace Memstate.SqlStreamStore
             _streamId = streamId;
             _serializer = serializer;
         }
-        
+
         public Task DisposeAsync()
         {
             return Task.CompletedTask;
@@ -34,10 +34,17 @@ namespace Memstate.SqlStreamStore
             while (true)
             {
                 var page = _streamStore.ReadStreamForwards(
-                    _streamId, (int) fromRecord, pageSize).Result;
+                    _streamId, (int)fromRecord, pageSize).Result;
                 foreach (var message in page.Messages)
+                {
                     yield return RecordFromStreamMessage(message);
-                if (page.IsEnd) break;
+                }
+
+                if (page.IsEnd)
+                {
+                    break;
+                }
+
                 fromRecord += page.Messages.Length;
             }
         }
@@ -45,9 +52,9 @@ namespace Memstate.SqlStreamStore
         private JournalRecord RecordFromStreamMessage(StreamMessage streamMessage)
         {
             var commandString = streamMessage.GetJsonData().Result;
-            var command = (Command) _serializer.FromString(commandString);
+            var command = (Command)_serializer.FromString(commandString);
             return new JournalRecord(
-                streamMessage.StreamVersion, 
+                streamMessage.StreamVersion,
                 streamMessage.CreatedUtc,
                 command);
         }

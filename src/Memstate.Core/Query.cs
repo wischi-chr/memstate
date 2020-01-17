@@ -13,7 +13,7 @@
 
         public override object ExecuteImpl(object model)
         {
-            return Execute((TModel) model);
+            return Execute((TModel)model);
         }
     }
 }

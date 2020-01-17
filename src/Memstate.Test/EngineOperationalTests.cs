@@ -1,10 +1,10 @@
-using FakeItEasy;
-using Memstate.Models;
-using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
-using Memstate.Models.KeyValue;
+using FakeItEasy;
 using Memstate.Configuration;
+using Memstate.Models;
+using Memstate.Models.KeyValue;
+using NUnit.Framework;
 
 namespace Memstate.Test
 {
@@ -32,7 +32,7 @@ namespace Memstate.Test
             Initialize();
 
             // apply records with a gap in the sequence
-            _fakeSource.RecordHandler.Invoke(new JournalRecord(0, _now, new Set<int>("key",42)));
+            _fakeSource.RecordHandler.Invoke(new JournalRecord(0, _now, new Set<int>("key", 42)));
             _fakeSource.RecordHandler.Invoke(new JournalRecord(2, _now, new Set<int>("a", 10)));
 
             // engine should now be stopped and throw if transactions are attempted
@@ -48,7 +48,7 @@ namespace Memstate.Test
 
             // apply records with a sequence in the gap
             _fakeSource.RecordHandler.Invoke(new JournalRecord(0, _now, new Set<int>("c", 200)));
-            _fakeSource.RecordHandler.Invoke(new JournalRecord(2, _now, new Set<int>("d",300)));
+            _fakeSource.RecordHandler.Invoke(new JournalRecord(2, _now, new Set<int>("d", 300)));
 
             //Wait for the second record to be applied
             await _engine.EnsureVersion(2).ConfigureAwait(false);

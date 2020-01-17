@@ -1,8 +1,8 @@
 using System;
-using FakeItEasy;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using FakeItEasy;
 using Memstate.Configuration;
+using NUnit.Framework;
 
 namespace Memstate.Test
 {
@@ -12,7 +12,7 @@ namespace Memstate.Test
         private IJournalSubscriptionSource _fakeSubscriptionSource;
         private IJournalSubscription _fakeSubscription;
         private IJournalWriter _fakeJournalWriter;
-        private Engine<Object> _engine;
+        private Engine<object> _engine;
         private int _nextRecordNumber;
 
         [SetUp]
@@ -28,7 +28,7 @@ namespace Memstate.Test
                 .Returns(_fakeSubscription);
 
             var settings = Config.Current.GetSettings<EngineSettings>();
-            _engine = new Engine<Object>(settings, new Object(), _fakeSubscriptionSource, _fakeJournalWriter, _nextRecordNumber);
+            _engine = new Engine<object>(settings, new object(), _fakeSubscriptionSource, _fakeJournalWriter, _nextRecordNumber);
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace Memstate.Test
 
         [Test]
         public async Task Writer_is_disposed_when_engine_is_disposed()
-        { 
+        {
             await _engine.DisposeAsync().ConfigureAwait(false);
             A.CallTo(() => _fakeJournalWriter.DisposeAsync())
                 .MustHaveHappened(Repeated.Exactly.Once);

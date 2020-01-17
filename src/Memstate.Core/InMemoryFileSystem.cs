@@ -18,9 +18,9 @@ namespace Memstate
         public bool Exists(string fileName)
         {
             lock (_files)
-            { 
-                return _files.ContainsKey(fileName); 
-            }   
+            {
+                return _files.ContainsKey(fileName);
+            }
         }
 
         public Stream OpenAppend(string path)
@@ -42,7 +42,7 @@ namespace Memstate
                     throw new FileNotFoundException(path);
                 }
 
-                 var result = OpenOrCreateStream(path);
+                var result = OpenOrCreateStream(path);
                 result.Position = 0;
                 return result;
             }
@@ -55,7 +55,10 @@ namespace Memstate
 
         private MemoryStream OpenOrCreateStream(string path)
         {
-            if (_lockedFiles.Contains(path)) throw new IOException("File is locked");
+            if (_lockedFiles.Contains(path))
+            {
+                throw new IOException("File is locked");
+            }
 
             if (!_files.ContainsKey(path))
             {

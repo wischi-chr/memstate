@@ -16,7 +16,7 @@ namespace Memstate
             _eventHandlers = new EventHandlers<TModel>(_engine);
         }
 
-        internal override Task<object> ExecuteUntyped(Query query) 
+        internal override Task<object> ExecuteUntyped(Query query)
             => Task.FromResult(_engine.ExecuteUntyped(query));
 
         public override Task Execute(Command<TModel> command)

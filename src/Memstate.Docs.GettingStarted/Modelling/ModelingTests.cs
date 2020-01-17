@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Memstate.Docs.GettingStarted.Modelling
 {
-    class ModelingTests
+    internal class ModelingTests
     {
     }
 }

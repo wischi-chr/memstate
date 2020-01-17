@@ -15,10 +15,10 @@ namespace Memstate.Examples.TodoMvc.Domain
             ListId = listId;
             TaskId = taskId;
         }
-        
+
         [JsonProperty]
         public Guid ListId { get; private set; }
-        
+
         [JsonProperty]
         public Guid TaskId { get; private set; }
 
@@ -27,7 +27,7 @@ namespace Memstate.Examples.TodoMvc.Domain
             var list = model.Lists[ListId];
 
             var task = list.Tasks.First(x => x.Id == TaskId);
-            
+
             task.Complete();
         }
     }

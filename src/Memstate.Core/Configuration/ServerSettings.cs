@@ -20,7 +20,11 @@ namespace Memstate.Tcp
         public override void Validate()
         {
             base.Validate();
-            if (Port < 1 || Port > 65535) throw new ArgumentOutOfRangeException(nameof(Port));
+            if (Port < 1 || Port > 65535)
+            {
+                throw new ArgumentOutOfRangeException(nameof(Port));
+            }
+
             if (!IPAddress.TryParse(Ip, out var dummy))
             {
                 throw new ArgumentException("Invalid IP Address", nameof(Ip));

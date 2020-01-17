@@ -13,7 +13,7 @@ namespace Memstate.Test
 
     public class SessionTests
     {
-        private  Session<KeyValueStore<int>> _session;
+        private Session<KeyValueStore<int>> _session;
         private KeyValueStore<int> _testModel;
         private List<Message> _messagesEmitted;
 
@@ -108,7 +108,7 @@ namespace Memstate.Test
         [Test]
         public async Task PingPong()
         {
-            var request  = new Ping();
+            var request = new Ping();
             await _session.Handle(request);
             var pong = AssertAndGetSingle<Pong>();
             Assert.AreEqual(request.Id, pong.ResponseTo);

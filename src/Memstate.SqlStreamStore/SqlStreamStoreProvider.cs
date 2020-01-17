@@ -4,15 +4,15 @@ using SqlStreamStore.Streams;
 
 namespace Memstate.SqlStreamStore
 {
-    public class SqlStreamStoreProvider: StorageProvider
+    public class SqlStreamStoreProvider : StorageProvider
     {
         private readonly StreamId _streamId;
-        private readonly ISerializer _serializer;        
+        private readonly ISerializer _serializer;
         private readonly IStreamStore _streamStore;
 
         public SqlStreamStoreProvider()
         {
-            Config config = Config.Current;
+            var config = Config.Current;
             _serializer = config.CreateSerializer();
             var settings = config.GetSettings<EngineSettings>();
             _streamId = new StreamId(settings.StreamName);

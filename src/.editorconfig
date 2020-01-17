@@ -1,0 +1,6 @@
+# Dotnet code style settings:
+[*.{cs,vb}]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+dotnet_sort_system_directives_first = true

@@ -14,9 +14,9 @@ namespace Memstate
 
             object proxy = DispatchProxy.Create<T, DispatchProxy<T>>();
 
-            ((DispatchProxy<T>) proxy).SetClient(client);
+            ((DispatchProxy<T>)proxy).SetClient(client);
 
-            return (T) proxy;
+            return (T)proxy;
         }
     }
 }

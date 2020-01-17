@@ -1,11 +1,11 @@
-﻿using Memstate.Configuration;
-using Memstate.Models.Graph;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using Memstate.Configuration;
+using Memstate.Models.Graph;
+using NUnit.Framework;
 
 namespace Memstate.Test.Models
 {
@@ -14,16 +14,24 @@ namespace Memstate.Test.Models
         private GraphModel _graph;
         private long _user1;
 
-        private string WireJournalFile = "gsmoke_test_with_defaults_wire.journal";
+        private readonly string WireJournalFile = "gsmoke_test_with_defaults_wire.journal";
 
-        private string JsonJournalFile = "gsmoke_test_with_defaults_json.journal";
+        private readonly string JsonJournalFile = "gsmoke_test_with_defaults_json.journal";
 
         [SetUp]
         [TearDown]
         public void SetupTeardown()
         {
-            if (File.Exists(WireJournalFile)) File.Delete(WireJournalFile);
-            if (File.Exists(JsonJournalFile)) File.Delete(JsonJournalFile);
+            if (File.Exists(WireJournalFile))
+            {
+                File.Delete(WireJournalFile);
+            }
+
+            if (File.Exists(JsonJournalFile))
+            {
+                File.Delete(JsonJournalFile);
+            }
+
             Config.Reset();
         }
 

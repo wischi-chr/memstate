@@ -11,7 +11,7 @@ namespace Memstate.Test.EventfulTestDomain
         }
 
         public Guid UserId { get; private set; }
-        
+
         public override void Execute(UsersModel model)
         {
             var user = model.Users.Values.FirstOrDefault(u => u.Id == UserId);

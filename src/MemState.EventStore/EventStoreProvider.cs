@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-
 using EventStore.ClientAPI;
 using Memstate.Configuration;
 
@@ -38,7 +37,7 @@ namespace Memstate.EventStore
 
         public Task DisposeAsync()
         {
-            return Task.Run((Action)_connection.Close);
+            return Task.Run(_connection.Close);
         }
     }
 }

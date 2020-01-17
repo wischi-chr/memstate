@@ -11,11 +11,11 @@ namespace Memstate.Host
     /// <summary>
     /// Service host for a MemstateServer and an optional web console
     /// </summary>
-    public class Host<TModel> where TModel: class
+    public class Host<TModel> where TModel : class
     {
-        MemstateServer<TModel> _server;
-        IWebHost _webConsole;
-        HostSettings _settings;
+        private MemstateServer<TModel> _server;
+        private IWebHost _webConsole;
+        private readonly HostSettings _settings;
 
         public Engine<TModel> TheEngine { get; private set; }
 
@@ -45,13 +45,20 @@ namespace Memstate.Host
 
         private Task StopWebConsole()
         {
-            if (!_settings.WebConsoleEnabled) return Task.CompletedTask;
+            if (!_settings.WebConsoleEnabled)
+            {
+                return Task.CompletedTask;
+            }
+
             return _webConsole.StopAsync();
         }
 
         private Task StartWebConsole()
         {
-            if (!_settings.WebConsoleEnabled) return Task.CompletedTask;
+            if (!_settings.WebConsoleEnabled)
+            {
+                return Task.CompletedTask;
+            }
 
             _webConsole = new WebHostBuilder()
                 .UseKestrel()

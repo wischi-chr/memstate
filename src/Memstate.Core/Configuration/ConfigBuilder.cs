@@ -7,7 +7,7 @@ namespace Memstate.Configuration
 
     public class ConfigBuilder
     {
-        private Dictionary<string, string> _args;
+        private readonly Dictionary<string, string> _args;
 
         public ConfigBuilder()
         {
@@ -25,7 +25,7 @@ namespace Memstate.Configuration
             var regex = new Regex(pattern, RegexOptions.IgnoreCase);
             foreach (var arg in args)
             {
-                Match match = regex.Match(arg);
+                var match = regex.Match(arg);
                 if (match.Success)
                 {
                     _args[match.Groups["key"].Value] = match.Groups["val"].Value;
@@ -37,7 +37,7 @@ namespace Memstate.Configuration
         public ConfigBuilder AddEnvironmentVariables(string prefix = "Memstate")
         {
             var vars = Environment.GetEnvironmentVariables();
-            foreach (String key in vars.Keys)
+            foreach (string key in vars.Keys)
             {
                 if (PrefixIsMatch(key, prefix))
                 {
@@ -50,7 +50,7 @@ namespace Memstate.Configuration
         public ConfigBuilder AddIniFiles()
         {
             var env = Environment.GetEnvironmentVariable("ENV");
-            if (!String.IsNullOrEmpty(env))
+            if (!string.IsNullOrEmpty(env))
             {
                 env = env.ToLower();
                 var file = $"memstate.{env}.ini";

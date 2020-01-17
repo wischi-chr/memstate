@@ -6,7 +6,7 @@ namespace Memstate
     {
         public static T Clone<T>(this ISerializer serializer, T graph)
         {
-            return (T) serializer.Deserialize(serializer.Serialize(graph));
+            return (T)serializer.Deserialize(serializer.Serialize(graph));
         }
 
         public static byte[] Serialize(this ISerializer serializer, object graph)
@@ -23,7 +23,7 @@ namespace Memstate
 
         public static object Deserialize(this ISerializer serializer, byte[] bytes)
         {
-            using (var stream = new MemoryStream(bytes) {Position = 0})
+            using (var stream = new MemoryStream(bytes) { Position = 0 })
             {
                 return serializer.ReadObject(stream);
             }

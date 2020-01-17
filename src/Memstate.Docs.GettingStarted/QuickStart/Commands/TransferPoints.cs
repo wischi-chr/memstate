@@ -10,9 +10,9 @@
             Points = points;
         }
 
-        public int RecieverId { get; set;  }
+        public int RecieverId { get; set; }
 
-        public int SenderId { get; set;  }
+        public int SenderId { get; set; }
 
         public int Points { get; set; }
 

@@ -1,9 +1,9 @@
-﻿using Memstate.Docs.GettingStarted.QuickStart;
-using Memstate.Docs.GettingStarted.QuickStart.Commands;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Memstate.Docs.GettingStarted.QuickStart;
+using Memstate.Docs.GettingStarted.QuickStart.Commands;
+using NUnit.Framework;
 
 namespace Memstate.Docs.GettingStarted.Configuration
 {
@@ -13,7 +13,10 @@ namespace Memstate.Docs.GettingStarted.Configuration
         [TearDown]
         public void Setup()
         {
-            if(File.Exists("mestate.journal")) File.Delete("memstate.journal");
+            if (File.Exists("mestate.journal"))
+            {
+                File.Delete("memstate.journal");
+            }
         }
 
         [Test]

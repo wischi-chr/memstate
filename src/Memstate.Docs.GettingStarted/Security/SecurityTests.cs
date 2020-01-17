@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Memstate.Docs.GettingStarted.Security
 {
-    class SecurityTests
+    internal class SecurityTests
     {
     }
 }

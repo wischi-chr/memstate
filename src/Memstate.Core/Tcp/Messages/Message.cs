@@ -38,7 +38,7 @@ namespace Memstate.Tcp
 
             buffer.Position = 0;
 
-            return (Message) serializer.ReadObject(buffer);
+            return (Message)serializer.ReadObject(buffer);
         }
     }
 }

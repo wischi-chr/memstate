@@ -78,7 +78,7 @@ namespace Memstate.Test.Models
         public void Given_key_was_changed_by_another_user_When_removing_a_value_Should_throw_exception_on_mismatching_version()
         {
             var version = _store.Set("EXISTING_KEY", "VALUE");
-            
+
             _store.Set("EXISTING_KEY", "VALUE");
 
             Assert.Throws<InvalidOperationException>(() => _store.Remove("EXISTING_KEY", version));
@@ -88,7 +88,7 @@ namespace Memstate.Test.Models
         public void Given_key_exists_When_removing_a_value_Should_remove_node()
         {
             _store.Set("EXISTING_KEY", "VALUE");
-            
+
             _store.Remove("EXISTING_KEY");
 
             Assert.Throws<KeyNotFoundException>(() => _store.Get("EXISTING_KEY"));

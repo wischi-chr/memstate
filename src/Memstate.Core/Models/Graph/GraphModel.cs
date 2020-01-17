@@ -15,8 +15,8 @@ namespace Memstate.Models.Graph
         private readonly SortedDictionary<long, Node> _nodesById;
         private readonly SortedDictionary<long, Edge> _edgesById;
 
-        private SortedDictionary<string, SortedSet<Node>> _nodesByLabel;
-        private SortedDictionary<string, SortedSet<Edge>> _edgesByLabel;
+        private readonly SortedDictionary<string, SortedSet<Node>> _nodesByLabel;
+        private readonly SortedDictionary<string, SortedSet<Edge>> _edgesByLabel;
 
 
         public IEnumerable<Node> Nodes
@@ -49,8 +49,8 @@ namespace Memstate.Models.Graph
 
         public long CreateEdge(long fromId, long toId, string label)
         {
-            Node from = NodeById(fromId);
-            Node to = NodeById(toId);
+            var from = NodeById(fromId);
+            var to = NodeById(toId);
             var id = ++_lastId;
             var edge = new Edge(id, label) { From = from, To = to };
             _edgesById[id] = edge;
@@ -72,8 +72,16 @@ namespace Memstate.Models.Graph
         public void RemoveNode(long id)
         {
             var node = NodeById(id);
-            foreach (var edge in node.Out) RemoveEdge(edge.Id);
-            foreach (var edge in node.In) RemoveEdge(edge.Id);
+            foreach (var edge in node.Out)
+            {
+                RemoveEdge(edge.Id);
+            }
+
+            foreach (var edge in node.In)
+            {
+                RemoveEdge(edge.Id);
+            }
+
             _nodesById.Remove(id);
             _nodesByLabel[node.Label].Remove(node);
         }
@@ -95,14 +103,17 @@ namespace Memstate.Models.Graph
 
         private T GetById<T>(IDictionary<long, T> items, long id)
         {
-            if (items.TryGetValue(id, out var item)) return item;
+            if (items.TryGetValue(id, out var item))
+            {
+                return item;
+            }
+
             throw new ArgumentException("No such node: " + id);
         }
 
         private static void AddByLabel<T>(IDictionary<string, SortedSet<T>> index, T item, string label)
         {
-            SortedSet<T> set;
-            if (!index.TryGetValue(label, out set))
+            if (!index.TryGetValue(label, out var set))
             {
                 set = new SortedSet<T>();
                 index[label] = set;

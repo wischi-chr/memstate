@@ -97,7 +97,7 @@ namespace Memstate
         private static OperationAttribute GetOperationAttribute(MethodInfo methodInfo)
         {
             //If there is an explicit attribute present, return it
-            var attribute = (OperationAttribute) methodInfo
+            var attribute = (OperationAttribute)methodInfo
                 .GetCustomAttributes(typeof(OperationAttribute), inherit: true)
                 .FirstOrDefault();
 
@@ -142,14 +142,14 @@ namespace Memstate
 
             if (MethodMaps.TryGetValue(type, out var methodMap))
             {
-                return (MethodMap<T>) methodMap;
+                return (MethodMap<T>)methodMap;
             }
 
             methodMap = MethodMap<T>.Create(type);
 
             MethodMaps.Add(type, methodMap);
 
-            return (MethodMap<T>) methodMap;
+            return (MethodMap<T>)methodMap;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Memstate
     internal class Counter
     {
         private readonly long _initialValue;
-        
+
         private long _value;
 
         public Counter(long initialValue = 0)

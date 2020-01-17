@@ -1,28 +1,29 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace Memstate.Test
 {
     [TestFixture]
     public class KernelConcurrencyTests
     {
-        class AccountModel : Dictionary<int, int> { }
+        private class AccountModel : Dictionary<int, int> { }
 
-        class AccountsSummed : Query<AccountModel, int>
+        private class AccountsSummed : Query<AccountModel, int>
         {
             public override int Execute(AccountModel db)
             {
                 return db.Values.Sum();
             }
         }
-        class AccountTransfer : Command<AccountModel>
+
+        private class AccountTransfer : Command<AccountModel>
         {
-            readonly int FromAccount;
-            readonly int ToAccount;
-            readonly int Amount;
+            private readonly int FromAccount;
+            private readonly int ToAccount;
+            private readonly int Amount;
 
             public AccountTransfer(int from, int to, int amount)
             {
@@ -33,15 +34,23 @@ namespace Memstate.Test
 
             public override void Execute(AccountModel model)
             {
-                if (!model.ContainsKey(FromAccount)) model[FromAccount] = 0;
-                if (!model.ContainsKey(ToAccount)) model[ToAccount] = 0;
+                if (!model.ContainsKey(FromAccount))
+                {
+                    model[FromAccount] = 0;
+                }
+
+                if (!model.ContainsKey(ToAccount))
+                {
+                    model[ToAccount] = 0;
+                }
+
                 model[FromAccount] -= Amount;
                 model[ToAccount] += Amount;
             }
         }
 
-        AccountModel _bank;
-        Kernel _kernel;
+        private AccountModel _bank;
+        private Kernel _kernel;
 
         [SetUp]
         public void Setup()
@@ -53,14 +62,14 @@ namespace Memstate.Test
 
         private IEnumerable<Command> RandomTransferCommands(int numCommands)
         {
-            Random rnd = new Random();
-            for (int i = 0; i < numCommands; i++)
+            var rnd = new Random();
+            for (var i = 0; i < numCommands; i++)
             {
                 var from = rnd.Next(100);
                 var to = rnd.Next(100);
                 var amount = rnd.Next(1000);
                 Task.Delay(rnd.Next(1)).Wait();
-                yield return new AccountTransfer(from,to,amount);
+                yield return new AccountTransfer(from, to, amount);
             }
         }
 
@@ -80,12 +89,12 @@ namespace Memstate.Test
 
             var queryTask = Task.Run(() =>
             {
-                for (int i = 0; i < NumTransactions / 2; i++)
+                for (var i = 0; i < NumTransactions / 2; i++)
                 {
                     var query = new AccountsSummed();
-                    var sum =  _kernel.Execute(query);
+                    var sum = _kernel.Execute(query);
                     //the sum at any given point in time should always be 0
-                    Assert.AreEqual(0,sum);
+                    Assert.AreEqual(0, sum);
                 }
             });
             await Task.WhenAll(commandTask, queryTask);

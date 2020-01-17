@@ -18,9 +18,9 @@ namespace Memstate.Test
         [Test]
         public void EnvironmentVariableWithUnderscoresAndMatchingCase()
         {
-            string key = "Memstate:Postgres:Password";
-            string varName = "Memstate_Postgres_Password";
-            string value = Guid.NewGuid().ToString();
+            var key = "Memstate:Postgres:Password";
+            var varName = "Memstate_Postgres_Password";
+            var value = Guid.NewGuid().ToString();
             Environment.SetEnvironmentVariable(varName, value);
             var config = Config.Reset();
             Assert.True(config.Data.ContainsKey(key));
@@ -29,9 +29,9 @@ namespace Memstate.Test
         [Test]
         public void EnvironmentVariableWithUnderscoresAndUpperCase()
         {
-            string key = "Memstate:Postgres:Password";
-            string varName = "MEMSTATE_POSTGRES_PASSWORD";
-            string value = Guid.NewGuid().ToString();
+            var key = "Memstate:Postgres:Password";
+            var varName = "MEMSTATE_POSTGRES_PASSWORD";
+            var value = Guid.NewGuid().ToString();
             Environment.SetEnvironmentVariable(varName, value);
             var config = Config.Reset();
             Assert.True(config.Data.ContainsKey(key));
@@ -40,9 +40,9 @@ namespace Memstate.Test
         [Test]
         public void EnvironmentVariableWithColonSeparator()
         {
-            string key = "Memstate:Postgres:Password";
-            string varName = "MEMSTATE:POSTGRES:PASSWORD";
-            string value = Guid.NewGuid().ToString();
+            var key = "Memstate:Postgres:Password";
+            var varName = "MEMSTATE:POSTGRES:PASSWORD";
+            var value = Guid.NewGuid().ToString();
             Environment.SetEnvironmentVariable(varName, value);
             var config = Config.Reset();
             Assert.True(config.Data.ContainsKey(key));

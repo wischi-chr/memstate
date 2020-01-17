@@ -1,6 +1,6 @@
-using NUnit.Framework;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace Memstate.Test
 {

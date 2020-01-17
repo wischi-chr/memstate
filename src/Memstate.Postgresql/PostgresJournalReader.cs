@@ -15,7 +15,7 @@ namespace Memstate.Postgres
                                            ORDER BY id ASC";
 
         private readonly ISerializer _serializer;
-        
+
         private readonly PostgresSettings _settings;
 
         public PostgresJournalReader(PostgresSettings settings)
@@ -71,10 +71,10 @@ namespace Memstate.Postgres
 
         private JournalRecord ReadRecord(IDataRecord reader)
         {
-            var recordNumber = (long) reader[0];
-            var written = (DateTime) reader[1];
-            var commandData = Convert.FromBase64String((string) reader[2]);
-            var command = (Command) _serializer.Deserialize(commandData);
+            var recordNumber = (long)reader[0];
+            var written = (DateTime)reader[1];
+            var commandData = Convert.FromBase64String((string)reader[2]);
+            var command = (Command)_serializer.Deserialize(commandData);
 
             return new JournalRecord(recordNumber, written, command);
         }

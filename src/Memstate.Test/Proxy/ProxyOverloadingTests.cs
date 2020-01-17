@@ -27,7 +27,7 @@ namespace Memstate.Test.DispatchProxy
         public void CanCallNoArgMethod()
         {
             _db.Meth();
-           Assert.AreEqual(1, _db.GetCalls());
+            Assert.AreEqual(1, _db.GetCalls());
         }
 
         [Test]
@@ -40,10 +40,10 @@ namespace Memstate.Test.DispatchProxy
         [Test]
         public void CanCallWithParams()
         {
-            
-            var numbers = new[] {1, 2, 3, 4, 5};
+
+            var numbers = new[] { 1, 2, 3, 4, 5 };
             var sum = numbers.Sum();
-            var result = _db.Meth(1,2,3,4,5);
+            var result = _db.Meth(1, 2, 3, 4, 5);
             Assert.AreEqual(sum, result);
         }
 
@@ -60,7 +60,7 @@ namespace Memstate.Test.DispatchProxy
             var numbers = new[] { 1, 2, 3, 4, 5 };
             var sum = numbers.Sum();
             var result = _db.Meth(numbers);
-            Assert.AreEqual(sum,result);
+            Assert.AreEqual(sum, result);
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Memstate.Test.DispatchProxy
             Assert.AreEqual(21, result);
 
             result = _db.Inc(20, 5);
-            Assert.AreEqual(25,result);
+            Assert.AreEqual(25, result);
         }
 
 
@@ -102,14 +102,14 @@ namespace Memstate.Test.DispatchProxy
             void Method(out int a);
         }
 
-        private class ModelWithOutArg  : IModelWithOutArg
+        private class ModelWithOutArg : IModelWithOutArg
         {
             public void Method(out int a)
             {
                 a = 42;
             }
         }
-        
+
         private class ModelWithRefArg : IModelWithRefArg
         {
             public void Method(ref int a)

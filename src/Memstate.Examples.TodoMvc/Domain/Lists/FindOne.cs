@@ -8,7 +8,7 @@ namespace Memstate.Examples.TodoMvc.Domain.Lists
         {
             ListId = listId;
         }
-        
+
         public Guid ListId { get; }
 
         public override TaskList Execute(TodoModel db)

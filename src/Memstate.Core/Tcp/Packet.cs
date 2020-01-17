@@ -61,7 +61,7 @@ namespace Memstate.Tcp
             var packet = new Packet
             {
                 Size = reader.ReadInt32(),
-                Info = (PacketInfo) reader.ReadInt16(),
+                Info = (PacketInfo)reader.ReadInt16(),
                 MessageId = reader.ReadInt32()
             };
 
@@ -107,7 +107,7 @@ namespace Memstate.Tcp
             var writer = new BinaryWriter(ms);
 
             writer.Write(Size);
-            writer.Write((short) Info);
+            writer.Write((short)Info);
             writer.Write(MessageId);
             writer.Write(Payload);
             writer.Flush();

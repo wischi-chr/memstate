@@ -19,12 +19,15 @@ namespace Memstate.Wire
         {
             if (@object is JournalRecord[])
             {
-                foreach(var record in (@object as JournalRecord[]))
+                foreach (var record in (@object as JournalRecord[]))
                 {
                     _serializer.Serialize(record, stream);
                 }
             }
-            else _serializer.Serialize(@object, stream);
+            else
+            {
+                _serializer.Serialize(@object, stream);
+            }
         }
 
         public override object ReadObject(Stream stream)

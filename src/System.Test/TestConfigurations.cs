@@ -43,7 +43,10 @@ namespace System.Test
                     settings.WithRandomSuffixAppendedToStreamName();
                     cfg.StorageProviderName = providerName;
                     if (providerName == "sqlstreamsource")
+                    {
                         ConfigurePgSqlStreamStore(cfg);
+                    }
+
                     yield return cfg;
                 }
             }

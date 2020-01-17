@@ -16,7 +16,7 @@ namespace Memstate.Examples.TodoMvc
                 .AddJsonFile("appsettings.json", false, true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .AddEnvironmentVariables();
-            
+
             Configuration = builder.Build();
         }
 
@@ -26,7 +26,7 @@ namespace Memstate.Examples.TodoMvc
         {
             services.AddMvc();
 
-            services.AddSingleton(async provider 
+            services.AddSingleton(async provider
                 => await new EngineBuilder()
                     .Build<TodoModel>());
         }
@@ -34,7 +34,7 @@ namespace Memstate.Examples.TodoMvc
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggingBuilder loggingBuilder)
         {
             loggingBuilder.AddConsole().AddDebug();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
